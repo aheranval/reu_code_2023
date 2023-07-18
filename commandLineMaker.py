@@ -1,9 +1,12 @@
 # Author: Alice Heranval
 # filename: name of csv file with data in format given by csvMaker.py
 # band: band of observations (1, 2, 13)
+# copy paste printed line (mystr) into command line
+# must be within directory containing data to work (ex: cd imbfitsDir)
+# input statement is to help with remembering which source is needed. Otherwise can simply change source to be a parameter.
 
 def makeLine(filename, band):
-    sourceList = ['J1641', 'J1509', 'J1228', 'J1510', 'J1522']
+    sourceList = ['J1641', 'J1509', 'J1228', 'J1510', 'J1522'] # assuming only these sources are observed
     source = input(f"which source? ({str(sourceList)}) ")
     mystr = "ls "
     f = open(filename)
@@ -21,8 +24,8 @@ def makeLine(filename, band):
             else:
                 mystr += f"*-1-*{date[0]}{date[1]}{date[2]}s{line[0]}* *-3-*{date[0]}{date[1]}{date[2]}s{line[0]}* "
     mystr += f"> ~/test/{source}_ar{band}.LIST"
-    print(mystr)
-    print(f"Counted {count} instances of source {source}")
+    print(mystr) # or return if you prefer
+    #print(f"Counted {count} instances of source {source}") ## only if needed to count files used or observations of source made
 
 
     
