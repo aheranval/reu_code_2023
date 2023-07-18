@@ -1,8 +1,12 @@
 6.7 PIIC Pipeline - Written by Alice Heranval
+Copied from Multiwavelength Manual Overleaf project. Apologies for formatting issues.
+
 6.7.1 Potential Method for Installation
+
 Note: Installation must be on device with x86 64 architecture. Linux virtual machines installed on
 Mac (arm64) architecture will have similar architectures which cannot run PIIC. Emulation was
 attempted with Linux on UTM, but ultimately was too slow for data reduction.
+
 Steps
 • download PIIC file (from online, gildas download area, https://www.iram.fr/ gildas/dist/index.html)
 – piic-exe-jun23a.tar.xz
@@ -18,7 +22,6 @@ folder once piic-exe is unzipped
 ***found a method that works to add everything (did not initially understand
 which /.bash profile to customize***
 • download files from online, unzip, take note of install path <installpath>
-6.7. PIIC PIPELINE 47
 • echo export GAG ROOT DIR=<installpath>/piic-exe-dec22a >> <installpath>/piic-exe-dec22a/
 etc/bash profile
 • echo export GAG EXEC SYSTEM=x86 64-generic >> <installpath>/piic-exe-dec22a/etc/bash
@@ -27,7 +30,9 @@ profile
 – reloads bash profile with changes
 • run! with command piic
 – note: did not get past this as my computer did not run piic natively
+
 6.7.2 Running on IRAM server
+
 Running PIIC
 • ssh into online server: ssh 032-22@mrt-enter.iram.es
 – type in password
@@ -39,6 +44,7 @@ PIIC RED or within test directory)
 – list of .fits files will be listed, simply type ”c” and hit enter to run. Wait for the magic
 to happen!
 – resulting .fits files will be located in directory entitled red.
+
 Basic Setup
 Before running PIIC, make sure you have your working directory set up with the necessary .LIST
 file (where all the .fits files to use are listed), a symbolic link to the data (.fits files) directory
@@ -50,7 +56,7 @@ mkdir my working dir !if you do not yet have a working directory
 cd my working dir/
 mkdir png red stat
 ln -s directory containing data imbfitsDir
-48 CHAPTER 6. DATI RADIO CON AIPS E DIFMAP
+
 Setting up .LIST files
 In order to set up your .LIST files for use with PIIC, simply go to your working directory and from
 there into the imbfitsDir. Then, simply use the ls command to move all needed files into your
