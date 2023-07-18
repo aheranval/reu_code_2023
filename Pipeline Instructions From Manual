@@ -1,0 +1,74 @@
+6.7 PIIC Pipeline - Written by Alice Heranval
+6.7.1 Potential Method for Installation
+Note: Installation must be on device with x86 64 architecture. Linux virtual machines installed on
+Mac (arm64) architecture will have similar architectures which cannot run PIIC. Emulation was
+attempted with Linux on UTM, but ultimately was too slow for data reduction.
+Steps
+• download PIIC file (from online, gildas download area, https://www.iram.fr/ gildas/dist/index.html)
+– piic-exe-jun23a.tar.xz
+∗ or latest version
+– piic-dafs-feb23a.tar.xz (optional- make sure latest dafs version is located in the dafs
+folder once piic-exe is unzipped
+• unzip (command tar xf filename when in Downloads directory)
+• in main directory, customize bash profile:
+– echo export GAG ROOT DIR=<installpath>/piic-exe-dec22a >> /.bash profile
+– echo export GAG EXEC SYSTEM=x86 64-generic >> /.bash profile
+– echo source $GAG ROOT DIR/etc/bash profile >> /.bash profile
+∗ creates bash profile and appends commands to it
+***found a method that works to add everything (did not initially understand
+which /.bash profile to customize***
+• download files from online, unzip, take note of install path <installpath>
+6.7. PIIC PIPELINE 47
+• echo export GAG ROOT DIR=<installpath>/piic-exe-dec22a >> <installpath>/piic-exe-dec22a/
+etc/bash profile
+• echo export GAG EXEC SYSTEM=x86 64-generic >> <installpath>/piic-exe-dec22a/etc/bash
+profile
+• source $GAG ROOT DIR/etc/bash profile
+– reloads bash profile with changes
+• run! with command piic
+– note: did not get past this as my computer did not run piic natively
+6.7.2 Running on IRAM server
+Running PIIC
+• ssh into online server: ssh 032-22@mrt-enter.iram.es
+– type in password
+• ssh into running environment: ssh mrt-lx5
+• go to working directory (in this case, working directory should already be set up within
+PIIC RED or within test directory)
+• use command gagpiic to set up environment variables (will not work otherwise)
+• then use command piic to run!
+– list of .fits files will be listed, simply type ”c” and hit enter to run. Wait for the magic
+to happen!
+– resulting .fits files will be located in directory entitled red.
+Basic Setup
+Before running PIIC, make sure you have your working directory set up with the necessary .LIST
+file (where all the .fits files to use are listed), a symbolic link to the data (.fits files) directory
+(imbfitsDir) and your png, red, stat directories, where output of data processing will be lo-
+cated. If not, make sure you set up the symbolic link and use command mkdir png red stat to
+get those set up. See the next section for how to create .LIST files.
+Some basic steps to follow:
+mkdir my working dir !if you do not yet have a working directory
+cd my working dir/
+mkdir png red stat
+ln -s directory containing data imbfitsDir
+48 CHAPTER 6. DATI RADIO CON AIPS E DIFMAP
+Setting up .LIST files
+In order to set up your .LIST files for use with PIIC, simply go to your working directory and from
+there into the imbfitsDir. Then, simply use the ls command to move all needed files into your
+list. For example, the following command creates a .LIST file of all files in the NIKA2 band:
+ls iram-30m*-2-* > <path to working dir>/my working dir/all ar2.LIST
+There are some (very rudimentary) Python codes to facilitate creation of command line arguments
+to select the correct files for sources, located at https://github.com/aheranval/reu code 2023. All
+they require is to download the .csv of observation information from tapas website at https://tapas.iram.es,
+simply go to My Projects, click on the project ID, go to all scans, select the maximum number of
+rows per page, and select .csv under format. You can save it from there.
+Making .piic file to run
+To create your actual .piic file, you can simply copy a template to your working directory, edit
+it using the nano command, and save it with your desired title. The only things to add to your
+template are:
+• Select the nikaBand variable (use ”1”, ”2”, ”3” or ”13”)
+• Select your list using the inList variable (inList "J1510 ar"’nikaBand’ is one example
+with the selected file being J1510 ar2 with the nikaBand variable set to 2)
+• Set hpbwToUse variable for the half-power beam width of the telescope, used for other calcu-
+lations within the reduction. According to the PIIC Pipelines documentation, HPBW is 11
+arcseconds for 1mm observations and 17 arcseconds for 2mm observations, so just type 11 for
+1mm and 17 for 2mm
